@@ -1,9 +1,9 @@
 import { FormEvent, useContext, useState } from "react";
 import { TodoContext } from "../../context/todoProvider";
 
-const { state } = useContext(TodoContext);
+const { state: TTodo } = useContext(TodoContext);
 const [task, setTask] = useState("");
-console.log(state);
+// console.log(state);
 function TodoListFrom() {
   const handelSubmit = (e: FormEvent) => {
     e.preventDefault();

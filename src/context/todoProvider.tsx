@@ -1,22 +1,20 @@
 import React, { createContext, ReactNode, useReducer } from "react";
 
-export const TodoContext = createContext<{
-  state: TTodo[];
-  dispatch: React.Dispatch<TAction> | undefined;
-}>(undefined);
-type TTodo = {
+export const TodoContext = createContext<
+  { state: TTodo[]; dispatch: React.Dispatch<TAction> } | undefined
+>(undefined);
+export type TTodo = {
   id: string;
   title: string;
   isCompleted: boolean;
 };
 type TAction = {
   type: string;
-  payload: any;
+  payload: TTodo;
 };
-type TodoProviderProps = {
-  children: ReactNode;
-};
+
 const initialState: TTodo[] = [];
+
 const reducer = (currentState: TTodo[], action: TAction) => {
   switch (action.type) {
     case "addTodo":
@@ -26,7 +24,9 @@ const reducer = (currentState: TTodo[], action: TAction) => {
       return currentState;
   }
 };
-
+type TodoProviderProps = {
+  children: ReactNode;
+};
 export default function TodoProvider({ children }: TodoProviderProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const values = {
