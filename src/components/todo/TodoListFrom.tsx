@@ -2,24 +2,29 @@ import { FormEvent, useContext, useState } from "react";
 import { TodoContext } from "../../context/todoProvider";
 
 function TodoListFrom() {
-  const { state } = useContext(TodoContext);
+  const { state, dispatch } = useContext(TodoContext);
   console.log(state);
   const [task, setTask] = useState("");
   const handelSubmit = (e: FormEvent) => {
     e.preventDefault();
     const todo = {
-      id: "Ajsdjahsd",
+      id: Math.random().toString(36).substring(2, 7),
       title: task,
       isCompleted: false,
     };
-    console.log(todo);
+    dispatch({ type: "addTodo", payload: todo });
   };
   return (
-    <div>
-      <h1>Add Todo</h1>
+    <div className="">
+      <div>
+        <h1 className="p-5">Add Todo</h1>
+      </div>
       <form onSubmit={handelSubmit}>
-        <label htmlFor="Todo">Task</label>
+        <label className="pt-2 pl-5" htmlFor="Todo">
+          Task
+        </label>
         <input
+          className="border border-red-400 pl-3"
           type="text"
           name="todo"
           id="todo"
@@ -27,7 +32,9 @@ function TodoListFrom() {
             setTask(e.target.value);
           }}
         />
-        <button type="submit">Submit</button>
+        <button className="btn btn-primary p-3" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );
